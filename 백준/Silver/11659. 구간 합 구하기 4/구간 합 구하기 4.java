@@ -1,31 +1,24 @@
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer stn = new StringTokenizer(buf.readLine());
         
-        int n = sc.nextInt();
-        int m = sc.nextInt();
-        int[] arr = new int[n + 1];
-        int[] sumArr = new int[n + 1];
-        int[] result = new int[m];
+        int n = Integer.parseInt(stn.nextToken());
+        int m = Integer.parseInt(stn.nextToken());
+        long[] sumArr = new long[n + 1];
         
+        stn = new StringTokenizer(buf.readLine());
         for (int i = 1; i <= n; i++) {
-            arr[i] = sc.nextInt();
-            if (i == 1) {
-                sumArr[i] = arr[i];
-            } else {
-                sumArr[i] = arr[i] + sumArr[i - 1];
-            }
+            sumArr[i] = sumArr[i - 1] + Integer.parseInt(stn.nextToken());
         }
         for (int i = 0; i < m; i++) {
-            int f = sc.nextInt();
-            int s = sc.nextInt();
-            result[i] = sumArr[s] - sumArr[f - 1];
-        }
-        
-        for (int r : result) {
-            System.out.println(r);
+            stn = new StringTokenizer(buf.readLine());
+            int f = Integer.parseInt(stn.nextToken());
+            int s = Integer.parseInt(stn.nextToken());
+            System.out.println(sumArr[s] - sumArr[f - 1]);
         }
     }
 }
