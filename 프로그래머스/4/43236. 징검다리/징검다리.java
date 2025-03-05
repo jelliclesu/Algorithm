@@ -13,7 +13,7 @@ class Solution {
             int prev = 0;
             
             for (int rock : rocks) {
-                long dis = rock - prev;
+                int dis = rock - prev;
                 if (dis < mid) {
                     remove++;
                     if (remove > n) break;
