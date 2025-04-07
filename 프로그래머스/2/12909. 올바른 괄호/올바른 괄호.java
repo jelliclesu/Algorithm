@@ -6,16 +6,11 @@ class Solution {
         Stack<Character> stack = new Stack<>();
         
         for (char c : s.toCharArray()) {
-            if (c == '(') {
-                stack.push(c);
+            if (c == ')') {
+                if (stack.isEmpty()) return false;
+                stack.pop();
             } else {
-                if (stack.isEmpty()) {
-                    answer = false;
-                    break;
-                }
-                if (stack.peek() == '(') {
-                    stack.pop();
-                }
+                stack.push(c);
             }
         }
         if (!stack.isEmpty()) answer = false;
