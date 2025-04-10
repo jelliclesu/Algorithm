@@ -4,28 +4,19 @@ public class Main {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
     int x = sc.nextInt();
-    
-    int mo = 1, ja = 1, count = 1;
-    
-    while (x != count) {
-      mo++;
-      count++;
-      if (count == x) break;
-      while (mo > 1 && x != count) {
-        mo--;
-        ja++;
-        count++;
-      }
-      if (count == x) break;
-      ja++;
-      count++;
-      if (count == x) break;
-      while (ja > 1 && x != count) {
-        mo++;
-        ja--;
-        count++;
-      }
+
+    int sum = 1;
+    int line = 1;
+    while (sum < x) {
+      line++;
+      sum += line;
     }
-    System.out.println(ja + "/" + mo);
+    int n = sum - x;
+    
+    if (line % 2 == 0) {
+      System.out.println((line - n) + "/" + (1 + n));
+    } else {
+      System.out.println((1 + n) + "/" + (line - n));
+    }
   }
 }
