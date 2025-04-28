@@ -4,10 +4,14 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         
-        int n = sc.nextInt();
-        int answer = 0;
+        String nStr = sc.next();
+        int n = Integer.parseInt(nStr);
+        int len = nStr.length();
         
-        for (int i = 1; i < n; i++) {
+        int start = Math.max(1, n - 9 * len);
+        
+        int answer = 0;
+        for (int i = start; i < n; i++) {
             int sum = i;
             int temp = i;
             
