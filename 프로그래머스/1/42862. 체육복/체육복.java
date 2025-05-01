@@ -2,10 +2,6 @@ import java.util.*;
 
 class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
-        // lost/ +1/ -1 이 reserve 에 있는 지 확인
-        // 없으면? n--
-        // reserve 에서 빌려주면 remove
-        // 먼저 자기 자신이 도난 당했는지 확인
         Arrays.sort(lost);
         Arrays.sort(reserve);
         Set<Integer> lostSet = new HashSet<>();
@@ -35,6 +31,5 @@ class Solution {
             }
         }
         return n;
-        
     }
 }
