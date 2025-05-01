@@ -1,41 +1,40 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
-        int answer = 0;
-        int count = 0;  // 도난 당했지만, 여벌이 있는 사람의 수
-        
-        // 배열 정렬
+        // lost/ +1/ -1 이 reserve 에 있는 지 확인
+        // 없으면? n--
+        // reserve 에서 빌려주면 remove
+        // 먼저 자기 자신이 도난 당했는지 확인
         Arrays.sort(lost);
         Arrays.sort(reserve);
-        
-        // 여벌이 있지만 도난당한 학생
-        for (int i = 0; i < reserve.length; i++) {
-            for (int j = 0; j < lost.length; j++) {
-                if (reserve[i] == lost[j]) {
-                    count++;
-                    reserve[i] = -1; // 이미 사용한 여벌 처리
-                    lost[j] = -1;    // 이미 처리한 도난 학생
-                    break;           // 해당 reserve[i]는 더 이상 사용하지 않음
-                }
-            }
+        Set<Integer> lostSet = new HashSet<>();
+        Set<Integer> reserveSet = new HashSet<>();
+        for (int r : reserve) {
+            reserveSet.add(r);
         }
         
-        // 인접한 학생에게 체육복 빌려주기
-        for (int i = 0; i < reserve.length; i++) {
-            for (int j = 0; j < lost.length; j++) {
-                if (reserve[i] != -1 && lost[j] != -1 && 
-                    (reserve[i] == lost[j] - 1 || reserve[i] == lost[j] + 1)) {
-                    count++;
-                    reserve[i] = -1; // 여벌 사용 처리
-                    lost[j] = -1;    // 도난 해결
+        for (int l : lost) {
+            if (reserveSet.contains(l)) {
+                reserveSet.remove(l);
+                continue;
+            }
+            lostSet.add(l);
+        }
+        for (int l : lostSet) {
+            boolean b = false;
+            for (int s : reserveSet) {
+                if (s == l - 1 || s == l + 1) {
+                    reserveSet.remove(s);
+                    b = true;
                     break;
                 }
             }
+            if (!b) {
+                n--;
+            }
         }
-        answer = n - lost.length + count;
+        return n;
         
-        return answer;
     }
 }
