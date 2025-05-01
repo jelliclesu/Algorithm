@@ -2,8 +2,6 @@ import java.util.*;
 
 class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
-        Arrays.sort(lost);
-        Arrays.sort(reserve);
         Set<Integer> lostSet = new HashSet<>();
         Set<Integer> reserveSet = new HashSet<>();
         for (int r : reserve) {
