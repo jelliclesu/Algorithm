@@ -11,14 +11,14 @@ public class Main {
       set.add(sc.nextLine());
     }
     
-    String[] arr = set.toArray(new String[0]);
-    Arrays.sort(arr, (a, b) -> {
+    List<String> list = new ArrayList<>(set);
+    Collections.sort(list, (a, b) -> {
       if (a.length() == b.length()) return a.compareTo(b);
       return a.length() - b.length();
     });
     
-    for (int i = 0; i < arr.length; i++) {
-      System.out.println(arr[i]);
+    for (String s : list) {
+        System.out.println(s);
     }
   }
 }
