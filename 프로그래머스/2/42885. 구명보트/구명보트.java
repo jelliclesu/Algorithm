@@ -10,13 +10,10 @@ class Solution {
         
         while (left <= right) {
             if (people[left] + people[right] <= limit) {
-                answer++;
                 left++;
-                right--;
-            } else {
-                answer++;
-                right--;
             }
+            right--;
+            answer++;
         }
         return answer;
     }
