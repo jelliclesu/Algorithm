@@ -9,10 +9,6 @@ class Solution {
         Arrays.sort(people);
         
         while (left <= right) {
-            if (answer == 0 && left == right) {
-                answer = people.length;
-            }
-            
             if (people[left] + people[right] <= limit) {
                 answer++;
                 left++;
