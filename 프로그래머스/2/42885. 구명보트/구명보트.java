@@ -2,24 +2,26 @@ import java.util.*;
 
 class Solution {
     public int solution(int[] people, int limit) {
-        Arrays.sort(people);
-        int maxIndex = people.length - 1;
-        int minIndex = 0;
-        int max = people[maxIndex];
-        int min = people[0];
         int answer = 0;
+        int left = 0;
+        int right = people.length - 1;
         
-        while (minIndex <= maxIndex) {
-            if (people[minIndex] + people[maxIndex] <= limit) {
+        Arrays.sort(people);
+        
+        while (left <= right) {
+            if (answer == 0 && left == right) {
+                answer = people.length;
+            }
+            
+            if (people[left] + people[right] <= limit) {
                 answer++;
-                maxIndex--;
-                minIndex++;
+                left++;
+                right--;
             } else {
                 answer++;
-                maxIndex--;
+                right--;
             }
         }
-        
         return answer;
     }
 }
