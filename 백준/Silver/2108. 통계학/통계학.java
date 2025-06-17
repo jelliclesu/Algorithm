@@ -25,21 +25,29 @@ public class Main {
 
         Arrays.sort(arr);
         priorityQueue.addAll(map.entrySet());
+        
+        StringBuilder sb = new StringBuilder();
+        
         // 1. 산술평균 sum / N
         int avg = (int) Math.round(sum / N);
+        sb.append(avg).append("\n");
         // 2. 중앙값 arr[N / 2]
         int mid = arr[N / 2];
+        sb.append(mid).append("\n");
         // 3. 최빈값 map 을 value 기준 정렬
         Map.Entry<Integer, Integer> first = priorityQueue.poll();
-        int many = first.getKey();
+        int mode = first.getKey();
         if (priorityQueue.size() != 0) {
             Map.Entry<Integer, Integer> second = priorityQueue.poll();
             if (first.getValue() == second.getValue()) {
-                many = second.getKey();
+                mode = second.getKey();
             }
         }
+        sb.append(mode).append("\n");
         // 4. 최댓값 arr[N - 1] - arr[0]
         int range = arr[N - 1] - arr[0];
-        System.out.println(avg + "\n" + mid + "\n" + many + "\n" + range);
+        sb.append(range);
+        
+        System.out.println(sb.toString());
     }
 }
