@@ -1,0 +1,33 @@
+import java.util.*;
+
+public class Main {
+    public static int N;
+    public static int M;
+    public static ArrayList<Integer> list;
+    public static StringBuilder sb = new StringBuilder();
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        N = sc.nextInt();
+        M = sc.nextInt();
+        list = new ArrayList<>();
+
+        func(0);
+        System.out.println(sb.toString());
+    }
+
+    private static void func(int count) {
+        if (count == M) {
+            for (int num : list) {
+                sb.append(num).append(" ");
+            }
+            sb.append("\n");
+            return;
+        }
+        for (int i = 1; i <= N; i++) {
+            list.add(i);
+            func(count + 1);
+            list.remove(count);
+        }
+    }
+}
