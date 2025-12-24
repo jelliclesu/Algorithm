@@ -8,13 +8,15 @@ class Solution {
         for (char c : s.toCharArray()) {
             if (c == ')') {
                 if (stack.isEmpty()) return false;
-                stack.pop();
+                else {
+                    stack.pop();
+                }
             } else {
-                stack.push(c);
+                stack.push(')');
             }
         }
-        if (!stack.isEmpty()) answer = false;
 
+        if (!stack.isEmpty()) return false;
         return answer;
     }
 }
