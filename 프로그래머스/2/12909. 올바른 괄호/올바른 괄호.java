@@ -12,7 +12,7 @@ class Solution {
                     stack.pop();
                 }
             } else {
-                stack.push(')');
+                stack.push(c);
             }
         }
 
