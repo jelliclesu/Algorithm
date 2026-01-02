@@ -1,23 +1,18 @@
 import java.util.*;
 
 class Solution {
-    public long solution(int[] scoville, int K) {
-        long answer = 0;
-        PriorityQueue<Integer> pQueue = new PriorityQueue<>();
-        for (int s: scoville) {
-            pQueue.add(s);
-        }
+    public int solution(int[] scoville, int K) {
+        int answer = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        Arrays.stream(scoville).forEach(pq::add);
         
-        while (pQueue.size() > 1) {
-            if (pQueue.peek() >= K) return answer;
-            int sc = pQueue.poll() + (pQueue.poll() * 2);
-            pQueue.add(sc);
+        while (pq.peek() < K) {
+            pq.add(pq.poll() + (pq.poll() * 2));
             answer++;
+            
+            if (pq.size() < 2) break;
         }
         
-        if (!pQueue.isEmpty() && pQueue.peek() < K) {
-            answer = -1;
-        }
-        return answer;
+        return pq.peek() < K ? -1 : answer;
     }
 }
