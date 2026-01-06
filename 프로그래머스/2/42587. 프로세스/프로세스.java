@@ -4,25 +4,25 @@ class Solution {
     public int solution(int[] priorities, int location) {
         int answer = 0;
         
-        PriorityQueue<Integer> pQueue = new PriorityQueue<>(Collections.reverseOrder());
-        Queue<int[]> queue = new LinkedList<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
+        LinkedList<int[]> q = new LinkedList<>();
         
         for (int i = 0; i < priorities.length; i++) {
-            pQueue.add(priorities[i]);
-            queue.add(new int[]{i, priorities[i]});
+            int[] arr = {i, priorities[i]};
+            q.add(arr);
+            pq.add(priorities[i]);
         }
         
-        while (!pQueue.isEmpty()) {
-            int top = pQueue.peek();
-            int[] process = queue.poll();
-            if (top > process[1]) {
-                queue.add(process);
-            } else {
-                pQueue.poll();
-                answer++;
-                if (process[0] == location) return answer;
-            }
+        while (!q.isEmpty()) {
+            int[] arr = q.poll();
             
+            if (arr[1]!= pq.peek()) {
+                q.add(arr);
+            } else {
+                pq.poll();
+                answer++;
+                if (location == arr[0]) break;
+            }
         }
         return answer;
     }
