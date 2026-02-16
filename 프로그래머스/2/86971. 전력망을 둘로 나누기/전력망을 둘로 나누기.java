@@ -2,8 +2,6 @@ import java.util.*;
 
 class Solution {
     static Map<Integer, List<Integer>> map;
-    static boolean[] visited;
-    static int size;
     
     public int solution(int n, int[][] wires) {
         int answer = Integer.MAX_VALUE;        
@@ -23,39 +21,41 @@ class Solution {
         }
         
         // 선 하나씩 잘라보고 차이값 Min 갱신하기
-        for (int i = 1; i <= n; i++) {
-            visited = new boolean[n + 1];
-            visited[i] = true;
-
-            List<Integer> list = map.get(i);
+        for (int[] wire : wires) {
+            int v1 = wire[0];
+            int v2 = wire[1];
             
-            for (int j = 0; j < list.size(); j++) {
-                size = 1;
-                int v2 = list.get(j);
-                dfs(v2);
-                int diff = Math.abs((n - size) - size);
-                answer = Math.min(answer, diff);
-                System.out.println("v1: " + i + " v2: " + v2 + " size: " + size + " diff: " + diff);
-            }
+            // 1. v1 <-> v2 간선 제거
+            map.get(v1).remove(Integer.valueOf(v2));
+            map.get(v2).remove(Integer.valueOf(v1));
+            
+            // 2. v1 에서 dfs 시작
+            int size = dfs(v1, new boolean[n + 1]);
+            
+            // 3. diff = abs((n - size) - size)
+            int diff = Math.abs((n - size) - size);
+        
+            // 4. min(answer, diff)
+            answer = Math.min(answer, diff);
+            
+            // 5. v1 <-> v2 간선 복구
+            map.get(v1).add(v2);
+            map.get(v2).add(v1);
         }
         
         return answer;
     }
     
-    private void dfs(int v2) {
-        if (visited[v2]) {
-            size--;
-            return;
+    private int dfs(int v1, boolean[] visited) {
+        visited[v1] = true;
+        int count = 1;
+        
+        for (int next : map.get(v1)) {
+            if (!visited[next]) {
+                count += dfs(next, visited);
+            }
         }
         
-        visited[v2] = true;
-
-        List<Integer> list = map.get(v2);
-        
-        for (int i = 0; i < list.size(); i++) {
-            int next = list.get(i);
-            size++;
-            dfs(next);
-        }
+        return count;
     }
 }
