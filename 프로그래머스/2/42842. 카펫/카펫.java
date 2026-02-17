@@ -1,19 +1,26 @@
+import java.util.*;
+
 class Solution {
     public int[] solution(int brown, int yellow) {
-        int row = 0;
-        int col = 0;
+        int[] answer = new int[2];
+        List<int[]> list = new ArrayList<>();
         
-        for (int i = 1; i <= yellow; i++) {
+        // yellow 영역 후보 찾기
+        for (int i = 1; i <= Math.sqrt(yellow); i++) {
             if (yellow % i == 0) {
-                row = (yellow / i) + 2;
-                col = i;
-            }
-            if ((row * 2 + col * 2) == brown) {
-                col = col + 2;
-                break;
+                int[] arr = {i, yellow / i};
+                list.add(arr);
             }
         }
-        int[] answer = {row, col};
+        
+        
+        // brown 크기에 비교하기
+        for (int[] arr : list) {
+            if (arr[0] * 2 + arr[1] * 2 + 4 == brown) {
+                answer[1] = arr[0] + 2;
+                answer[0] = arr[1] + 2;
+            }
+        }
         return answer;
     }
 }
